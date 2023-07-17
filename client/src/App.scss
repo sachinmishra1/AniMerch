@@ -1,0 +1,740 @@
+/////////////
+// VARIABLES
+/////////////
+$color-blue: rgb(0, 110, 255);
+$color-orange: rgb(255, 115, 0);
+$font-kdam: "Kdam Thmor Pro", sans-serif;
+
+//////////
+// MIXINS
+//////////
+@mixin flexbox($fd: row, $ai: center, $jc: center) {
+  display: flex;
+  flex-direction: $fd;
+  align-items: $ai;
+  justify-content: $jc;
+}
+
+@mixin w-h($width: 50px, $height: 50px) {
+  width: $width;
+  height: $height;
+}
+
+/////////////
+// ANIMATIONS
+/////////////
+@keyframes rain {
+  0% {
+    transform: translate(-70vw, -200px) rotate(-35deg);
+  }
+  100% {
+    transform: translate(-20vw, calc(100vh + 200px)) rotate(-35deg);
+  }
+}
+
+@keyframes swipeUp {
+  0% {
+    transform: scaleY(100%);
+    opacity: 1;
+  }
+  20% {
+    transform: scaleY(120%);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0%);
+    opacity: 0.3;
+  }
+}
+
+/////////
+// STYLES
+/////////
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-family: $font-kdam;
+}
+
+body {
+  @include flexbox;
+  overflow: hidden;
+}
+
+// In both HomePage and Navbar
+.search-form {
+  position: relative;
+
+  .search-bar {
+    @include w-h(50vw, 40px);
+    max-width: 700px;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 40px;
+    color: rgb(77, 77, 77);
+    font-weight: 900;
+  }
+
+  .search-icon {
+    @include w-h(30px, 30px);
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    background-color: $color-orange;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+
+    img {
+      cursor: pointer;
+      @include w-h(20px, 20px);
+      transform: translateY(1px);
+    }
+  }
+}
+
+// In both HomePage and Navbar
+.tabs {
+  @include flexbox;
+  list-style: none;
+
+  .shop-all,
+  .anime-dropdown,
+  .merch-dropdown {
+    position: relative;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    &:hover {
+      border-top: solid 2px white;
+      border-bottom: solid 2px white;
+    }
+
+    button {
+      color: white;
+      background-color: transparent;
+      border: none;
+      letter-spacing: 2px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    ul {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-rows: repeat(fit-content, auto);
+      width: 225px;
+      text-align: center;
+      list-style: none;
+      padding: 10px;
+      cursor: default;
+
+      li {
+        border-top: solid 2px transparent;
+        border-bottom: solid 2px transparent;
+        width: 100%;
+        font-size: 15px;
+        cursor: pointer;
+
+        &:hover {
+          border-top: solid 2px white;
+          border-bottom: solid 2px white;
+        }
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  border: solid 2px $color-orange;
+  margin: 10px 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color-orange;
+  border: solid 2px white;
+}
+
+///////////////
+// RAIN EFFECT
+///////////////
+// .rain-element {
+//   position: fixed;
+//   top: 0;
+//   height: 200px;
+//   border-bottom-left-radius: 5px;
+//   border-bottom-right-radius: 5px;
+//   animation: rain 7s linear infinite;
+//   z-index: -5;
+// }
+
+// .rain-element:nth-child(3n) {
+//   background: linear-gradient(transparent, aqua);
+// }
+
+// .rain-element:nth-child(3n + 1) {
+//   background: linear-gradient(transparent, red);
+// }
+
+// .rain-element:nth-child(3n + 2) {
+//   background: linear-gradient(transparent, $color-orange);
+// }
+
+////////////
+// HOME PAGE
+////////////
+.home-page {
+  @include w-h(100vw, 100vh);
+  display: grid;
+  grid-template-rows: 100px 100px 50px;
+  grid-template-columns: 100%;
+  padding: 30vh 20vw;
+  justify-items: center;
+  align-items: center;
+  background-color: $color-orange;
+  color: white;
+  overflow: auto;
+
+  h1 {
+    font-size: 100px;
+    font-family: "Racing Sans One", cursive;
+    line-height: 1;
+    cursor: default;
+  }
+}
+
+/////////
+// NAVBAR
+/////////
+.navbar {
+  @include w-h(100vw, 90px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background: linear-gradient(
+    180deg,
+    $color-orange 95%,
+    rgba(100, 100, 100, 0.5) 95%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 0 10vw;
+  z-index: 5;
+
+  h1 {
+    font-size: 40px;
+    font-family: "Racing Sans One", cursive;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .shop-all,
+  .anime-dropdown,
+  .merch-dropdown {
+    button {
+      font-size: 17px;
+    }
+
+    .dropdown-list {
+      li {
+        background-color: $color-orange;
+      }
+    }
+  }
+
+  .shopping-cart {
+    position: relative;
+
+    .cart-image {
+      @include w-h(35px, 35px);
+      cursor: pointer;
+    }
+
+    .cart-quantity {
+      @include w-h(1.2rem, 1.2rem);
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(10px, -10px);
+      font-size: 0.75rem;
+      text-align: center;
+      background-color: red;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+/////////////////////
+// SEARCH PAGE LAYOUT
+/////////////////////
+.search-page-layout {
+  @include flexbox($ai: flex-start);
+  @include w-h(100vw, calc(100vh - 90px));
+  padding: 2vh 10vw 2vh 10vw;
+  margin-top: 90px;
+}
+
+/////////////////
+// FILTER SIDEBAR
+/////////////////
+.filter-sidebar {
+  width: 180px;
+  ul {
+    list-style: none;
+    margin-bottom: 15px;
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+
+      input {
+        cursor: pointer;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 15px;
+  }
+
+  div {
+    @include flexbox($jc: space-between);
+
+    span {
+      font-size: 12px;
+    }
+
+    input {
+      width: 60%;
+    }
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 2px 5px;
+    background-color: $color-orange;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+/////////////////
+// ITEM CONTAINER
+/////////////////
+.item-container {
+  @include w-h(calc(80vw - 180px), 100%);
+  position: relative;
+  overflow: auto;
+  display: grid;
+  grid-template: repeat(auto-fill, 300px) / repeat(auto-fill, 300px);
+  row-gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+
+  .none-found {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+////////
+// TILES
+////////
+.tiles {
+  @include w-h(300px, 300px);
+  @include flexbox($fd: column, $jc: flex-start);
+  transition: 0.3s;
+  cursor: pointer;
+
+  img {
+    height: 80%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .info-container {
+    text-align: center;
+  }
+
+  &:hover {
+    box-shadow: 2px 2px 7px $color-orange, 2px -2px 7px $color-orange,
+      -2px 2px 7px $color-orange, -2px -2px 7px $color-orange;
+    transform: translate(-2px, -2px);
+    transition: 0.3s;
+  }
+}
+
+///////////////////
+// DESCRIPTION PAGE
+///////////////////
+.item-desc {
+  @include w-h(100vw, calc(100vh - 90px));
+  padding: 2vh 10vw 2vh 10vw;
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 50px;
+  align-items: flex-start;
+  overflow-y: auto;
+
+  .img-container {
+    @include flexbox($fd: column, $jc: flex-start);
+    @include w-h(30vw, calc(96vh - 90px));
+    .img-display {
+      height: 70%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .img-previews {
+      @include flexbox;
+      @include w-h(100%, auto);
+      margin-top: 3vh;
+
+      img {
+        @include w-h(80px, 80px);
+        object-fit: contain;
+        margin: 20px;
+        border: solid 2px $color-orange;
+        box-shadow: 1px 1px 10px black;
+        cursor: pointer;
+
+        &.clicked {
+          border: solid 2px black;
+          box-shadow: none;
+          opacity: 0.3;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  .item-info {
+    @include flexbox($fd: column, $ai: flex-start);
+
+    h1 {
+      width: 100%;
+      font-size: 40px;
+      text-align: left;
+      padding-bottom: 15px;
+      border-bottom: solid 1px black;
+    }
+
+    .item-price-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 60px 1fr;
+      width: 100%;
+      padding: 15px 0;
+
+      .item-price {
+        font-size: 30px;
+        align-self: center;
+      }
+
+      .item-add {
+        @include w-h(114px, 37px);
+        position: relative;
+        padding: 5px 10px;
+        font-size: 15px;
+        cursor: pointer;
+        background-color: $color-orange;
+        color: white;
+        align-self: center;
+        justify-self: start;
+        grid-row: 2;
+        grid-column: 1;
+        transition: 0.3s;
+
+        &:active {
+          box-shadow: inset 2px 2px 5px black;
+        }
+
+        &.added {
+          transition: 0.3s;
+          background-color: green;
+        }
+      }
+
+      .item-size-buttons {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(5, 70px);
+
+        li {
+          @include w-h(60px, 60px);
+          padding: 5px;
+
+          .size-button {
+            @include w-h(100%, 100%);
+            cursor: pointer;
+            border-radius: 50%;
+
+            &.clicked {
+              color: white;
+              background-color: $color-orange;
+              box-shadow: inset 2px 2px 5px black;
+            }
+          }
+        }
+      }
+    }
+
+    .product-description {
+      width: 100%;
+      padding-left: 20px;
+      padding-bottom: 20px;
+      border-bottom: solid 1px black;
+    }
+
+    .reviews-header {
+      padding-top: 15px;
+    }
+
+    .reviews {
+      height: 300px;
+      overflow-y: auto;
+      list-style: none;
+
+      li {
+        padding-top: 20px;
+
+        div {
+          @include flexbox($jc: flex-start);
+          margin-bottom: 5px;
+          padding: 0;
+
+          .username {
+            margin-right: 15px;
+          }
+
+          img {
+            @include w-h(20px, 20px);
+            object-fit: contain;
+          }
+        }
+
+        p {
+          height: 100px;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+}
+
+////////////////
+// SHOPPING CART
+////////////////
+.shopping-cart-page {
+  @include w-h(100vw, calc(100vh - 90px));
+  @include flexbox($fd: column, $ai: flex-start, $jc: flex-start);
+  padding: 2vh 10vw 2vh 10vw;
+  margin-top: 90px;
+  overflow-y: auto;
+
+  .cart-header {
+    width: 100%;
+    text-align: left;
+    font-size: 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+  }
+
+  .cart-tile {
+    @include w-h(100%, 240px);
+    display: grid;
+    grid-template-columns: 200px 1fr 50px 120px 50px 80px;
+    align-items: center;
+    justify-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid gray;
+
+    img {
+      @include w-h(200px, 200px);
+      object-fit: contain;
+    }
+
+    div {
+      width: 100%;
+      text-align: left;
+      padding: 0 30px;
+
+      h3 {
+        align-self: center;
+        justify-items: center;
+        font-size: 20px;
+      }
+
+      // h5 {
+      //   font-size: ;
+      // }
+
+      .qty {
+        margin-top: 20px;
+      }
+
+      input {
+        width: 3rem;
+        height: 1.5rem;
+        margin-left: 5px;
+      }
+
+      button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        padding: 0;
+        font-size: 10px;
+        color: blue;
+      }
+
+      button:active {
+        color: red;
+      }
+    }
+
+    h2 {
+      justify-self: flex-end;
+    }
+  }
+
+  .cart-total {
+    @include flexbox($fd: column, $ai: flex-end);
+    width: 100%;
+
+    h1 {
+      margin: 10px 0;
+    }
+
+    button {
+      @include w-h(100px, 40px);
+      background-color: $color-orange;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+
+      &:active {
+        box-shadow: inset 2px 2px 5px black;
+      }
+    }
+  }
+}
+
+// //////////////////////
+// // SHOPPING CART PAGE
+// //////////////////////
+// .cart-page {
+//   @include flexbox(column, center, center);
+//   padding: 110px 250px 100px 250px;
+
+//   .cart-header {
+//     @include h-w(auto, 1000px);
+//     text-align: left;
+//     font-size: 50px;
+//     padding-bottom: 30px;
+//     border-bottom: 1px solid gray;
+//   }
+
+//   .cart-tile {
+//     @include h-w(240px, 1000px);
+//     display: grid;
+//     grid-template-columns: 200px 1fr 50px 120px 50px 80px;
+//     align-items: center;
+//     justify-items: center;
+//     padding: 20px 0;
+//     border-bottom: 1px solid gray;
+
+//     img {
+//       @include h-w(200px, 200px);
+//       object-fit: contain;
+//     }
+
+//     div {
+//       width: 100%;
+//       text-align: left;
+//       padding: 0 30px;
+
+//       h3 {
+//         align-self: center;
+//         justify-items: center;
+//         font-size: 20px;
+//       }
+
+//       h5 {
+//         font-size: ;
+//       }
+
+//       .qty {
+//         margin-top: 20px;
+//       }
+
+//       input {
+//         width: 3rem;
+//         height: 1.5rem;
+//         margin-left: 5px;
+//       }
+
+//       button {
+//         border: none;
+//         background-color: transparent;
+//         cursor: pointer;
+//         padding: 0;
+//         font-size: 10px;
+//         color: blue;
+//       }
+
+//       button:active {
+//         color: red;
+//       }
+//     }
+
+//     h2 {
+//       justify-self: flex-end;
+//     }
+//   }
+
+//   .cart-total {
+//     @include flexbox(column, flex-end, center);
+//     @include h-w(auto, 1000px);
+
+//     h1 {
+//       margin: 10px 0;
+//     }
+
+//     button {
+//       @include h-w(40px, 100px);
+//       background-color: $color-orange;
+//       color: white;
+//       font-size: 15px;
+//       cursor: pointer;
+
+//       &:active {
+//         box-shadow: inset 2px 2px 5px black;
+//       }
+//     }
+//   }
+// }

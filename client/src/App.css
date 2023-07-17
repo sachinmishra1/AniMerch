@@ -1,0 +1,583 @@
+@-webkit-keyframes rain {
+  0% {
+    transform: translate(-70vw, -200px) rotate(-35deg);
+  }
+  100% {
+    transform: translate(-20vw, calc(100vh + 200px)) rotate(-35deg);
+  }
+}
+@keyframes rain {
+  0% {
+    transform: translate(-70vw, -200px) rotate(-35deg);
+  }
+  100% {
+    transform: translate(-20vw, calc(100vh + 200px)) rotate(-35deg);
+  }
+}
+@-webkit-keyframes swipeUp {
+  0% {
+    transform: scaleY(100%);
+    opacity: 1;
+  }
+  20% {
+    transform: scaleY(120%);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0%);
+    opacity: 0.3;
+  }
+}
+@keyframes swipeUp {
+  0% {
+    transform: scaleY(100%);
+    opacity: 1;
+  }
+  20% {
+    transform: scaleY(120%);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0%);
+    opacity: 0.3;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-family: "Kdam Thmor Pro", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.search-form {
+  position: relative;
+}
+.search-form .search-bar {
+  width: 50vw;
+  height: 40px;
+  max-width: 700px;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 40px;
+  color: rgb(77, 77, 77);
+  font-weight: 900;
+}
+.search-form .search-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background-color: rgb(255, 115, 0);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.search-form .search-icon img {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transform: translateY(1px);
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+.tabs .shop-all,
+.tabs .anime-dropdown,
+.tabs .merch-dropdown {
+  position: relative;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.tabs .shop-all:hover,
+.tabs .anime-dropdown:hover,
+.tabs .merch-dropdown:hover {
+  border-top: solid 2px white;
+  border-bottom: solid 2px white;
+}
+.tabs .shop-all button,
+.tabs .anime-dropdown button,
+.tabs .merch-dropdown button {
+  color: white;
+  background-color: transparent;
+  border: none;
+  letter-spacing: 2px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.tabs .shop-all ul,
+.tabs .anime-dropdown ul,
+.tabs .merch-dropdown ul {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-rows: repeat(-webkit-fit-content, auto);
+  grid-template-rows: repeat(fit-content, auto);
+  width: 225px;
+  text-align: center;
+  list-style: none;
+  padding: 10px;
+  cursor: default;
+}
+.tabs .shop-all ul li,
+.tabs .anime-dropdown ul li,
+.tabs .merch-dropdown ul li {
+  border-top: solid 2px transparent;
+  border-bottom: solid 2px transparent;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+}
+.tabs .shop-all ul li:hover,
+.tabs .anime-dropdown ul li:hover,
+.tabs .merch-dropdown ul li:hover {
+  border-top: solid 2px white;
+  border-bottom: solid 2px white;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  border: solid 2px rgb(255, 115, 0);
+  margin: 10px 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 115, 0);
+  border: solid 2px white;
+}
+
+.home-page {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 100px 100px 50px;
+  grid-template-columns: 100%;
+  padding: 30vh 20vw;
+  justify-items: center;
+  align-items: center;
+  background-color: rgb(255, 115, 0);
+  color: white;
+  overflow: auto;
+}
+.home-page h1 {
+  font-size: 100px;
+  font-family: "Racing Sans One", cursive;
+  line-height: 1;
+  cursor: default;
+}
+
+.navbar {
+  width: 100vw;
+  height: 90px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background: linear-gradient(180deg, rgb(255, 115, 0) 95%, rgba(100, 100, 100, 0.5) 95%, rgba(255, 255, 255, 0) 100%);
+  padding: 0 10vw;
+  z-index: 5;
+}
+.navbar h1 {
+  font-size: 40px;
+  font-family: "Racing Sans One", cursive;
+  line-height: 1;
+  cursor: pointer;
+}
+.navbar .shop-all button,
+.navbar .anime-dropdown button,
+.navbar .merch-dropdown button {
+  font-size: 17px;
+}
+.navbar .shop-all .dropdown-list li,
+.navbar .anime-dropdown .dropdown-list li,
+.navbar .merch-dropdown .dropdown-list li {
+  background-color: rgb(255, 115, 0);
+}
+.navbar .shopping-cart {
+  position: relative;
+}
+.navbar .shopping-cart .cart-image {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+.navbar .shopping-cart .cart-quantity {
+  width: 1.2rem;
+  height: 1.2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(10px, -10px);
+  font-size: 0.75rem;
+  text-align: center;
+  background-color: red;
+  border-radius: 0.5rem;
+}
+
+.search-page-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100vw;
+  height: calc(100vh - 90px);
+  padding: 2vh 10vw 2vh 10vw;
+  margin-top: 90px;
+}
+
+.filter-sidebar {
+  width: 180px;
+}
+.filter-sidebar ul {
+  list-style: none;
+  margin-bottom: 15px;
+}
+.filter-sidebar ul label {
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.filter-sidebar ul label input {
+  cursor: pointer;
+}
+.filter-sidebar h1 {
+  font-size: 15px;
+}
+.filter-sidebar div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-sidebar div span {
+  font-size: 12px;
+}
+.filter-sidebar div input {
+  width: 60%;
+}
+.filter-sidebar button {
+  margin-top: 15px;
+  padding: 2px 5px;
+  background-color: rgb(255, 115, 0);
+  border: solid 1px rgb(0, 0, 0);
+  border-radius: 7px;
+  color: white;
+  cursor: pointer;
+}
+
+.item-container {
+  width: calc(80vw - 180px);
+  height: 100%;
+  position: relative;
+  overflow: auto;
+  display: grid;
+  grid-template: repeat(auto-fill, 300px)/repeat(auto-fill, 300px);
+  row-gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+}
+.item-container .none-found {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tiles {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.tiles img {
+  height: 80%;
+  max-width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.tiles .info-container {
+  text-align: center;
+}
+.tiles:hover {
+  box-shadow: 2px 2px 7px rgb(255, 115, 0), 2px -2px 7px rgb(255, 115, 0), -2px 2px 7px rgb(255, 115, 0), -2px -2px 7px rgb(255, 115, 0);
+  transform: translate(-2px, -2px);
+  transition: 0.3s;
+}
+
+.item-desc {
+  width: 100vw;
+  height: calc(100vh - 90px);
+  padding: 2vh 10vw 2vh 10vw;
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 50px;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+.item-desc .img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30vw;
+  height: calc(96vh - 90px);
+}
+.item-desc .img-container .img-display {
+  height: 70%;
+  max-width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.item-desc .img-container .img-previews {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-top: 3vh;
+}
+.item-desc .img-container .img-previews img {
+  width: 80px;
+  height: 80px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin: 20px;
+  border: solid 2px rgb(255, 115, 0);
+  box-shadow: 1px 1px 10px black;
+  cursor: pointer;
+}
+.item-desc .img-container .img-previews img.clicked {
+  border: solid 2px black;
+  box-shadow: none;
+  opacity: 0.3;
+  cursor: default;
+}
+.item-desc .item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.item-desc .item-info h1 {
+  width: 100%;
+  font-size: 40px;
+  text-align: left;
+  padding-bottom: 15px;
+  border-bottom: solid 1px black;
+}
+.item-desc .item-info .item-price-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 60px 1fr;
+  width: 100%;
+  padding: 15px 0;
+}
+.item-desc .item-info .item-price-container .item-price {
+  font-size: 30px;
+  align-self: center;
+}
+.item-desc .item-info .item-price-container .item-add {
+  width: 114px;
+  height: 37px;
+  position: relative;
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: rgb(255, 115, 0);
+  color: white;
+  align-self: center;
+  justify-self: start;
+  grid-row: 2;
+  grid-column: 1;
+  transition: 0.3s;
+}
+.item-desc .item-info .item-price-container .item-add:active {
+  box-shadow: inset 2px 2px 5px black;
+}
+.item-desc .item-info .item-price-container .item-add.added {
+  transition: 0.3s;
+  background-color: green;
+}
+.item-desc .item-info .item-price-container .item-size-buttons {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 70px);
+}
+.item-desc .item-info .item-price-container .item-size-buttons li {
+  width: 60px;
+  height: 60px;
+  padding: 5px;
+}
+.item-desc .item-info .item-price-container .item-size-buttons li .size-button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.item-desc .item-info .item-price-container .item-size-buttons li .size-button.clicked {
+  color: white;
+  background-color: rgb(255, 115, 0);
+  box-shadow: inset 2px 2px 5px black;
+}
+.item-desc .item-info .product-description {
+  width: 100%;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-bottom: solid 1px black;
+}
+.item-desc .item-info .reviews-header {
+  padding-top: 15px;
+}
+.item-desc .item-info .reviews {
+  height: 300px;
+  overflow-y: auto;
+  list-style: none;
+}
+.item-desc .item-info .reviews li {
+  padding-top: 20px;
+}
+.item-desc .item-info .reviews li div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+  padding: 0;
+}
+.item-desc .item-info .reviews li div .username {
+  margin-right: 15px;
+}
+.item-desc .item-info .reviews li div img {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.item-desc .item-info .reviews li p {
+  height: 100px;
+  overflow-y: auto;
+}
+
+.shopping-cart-page {
+  width: 100vw;
+  height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2vh 10vw 2vh 10vw;
+  margin-top: 90px;
+  overflow-y: auto;
+}
+.shopping-cart-page .cart-header {
+  width: 100%;
+  text-align: left;
+  font-size: 50px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray;
+}
+.shopping-cart-page .cart-tile {
+  width: 100%;
+  height: 240px;
+  display: grid;
+  grid-template-columns: 200px 1fr 50px 120px 50px 80px;
+  align-items: center;
+  justify-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid gray;
+}
+.shopping-cart-page .cart-tile img {
+  width: 200px;
+  height: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.shopping-cart-page .cart-tile div {
+  width: 100%;
+  text-align: left;
+  padding: 0 30px;
+}
+.shopping-cart-page .cart-tile div h3 {
+  align-self: center;
+  justify-items: center;
+  font-size: 20px;
+}
+.shopping-cart-page .cart-tile div .qty {
+  margin-top: 20px;
+}
+.shopping-cart-page .cart-tile div input {
+  width: 3rem;
+  height: 1.5rem;
+  margin-left: 5px;
+}
+.shopping-cart-page .cart-tile div button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-size: 10px;
+  color: blue;
+}
+.shopping-cart-page .cart-tile div button:active {
+  color: red;
+}
+.shopping-cart-page .cart-tile h2 {
+  justify-self: flex-end;
+}
+.shopping-cart-page .cart-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+}
+.shopping-cart-page .cart-total h1 {
+  margin: 10px 0;
+}
+.shopping-cart-page .cart-total button {
+  width: 100px;
+  height: 40px;
+  background-color: rgb(255, 115, 0);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+.shopping-cart-page .cart-total button:active {
+  box-shadow: inset 2px 2px 5px black;
+}/*# sourceMappingURL=App.css.map */
